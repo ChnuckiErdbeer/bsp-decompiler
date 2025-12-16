@@ -282,14 +282,17 @@ namespace Decompiler
         /// <param name="sideNum">Which side this is in the parent <see cref="Brush"/>. Important for Call of Duty series maps, since
         /// the first six <see cref="BrushSide"/>s in a <see cref="Brush"/> don't contain <see cref="Plane"/> references.</param>
         /// <returns>The processed <see cref="MAPBrushSode"/> object, to be added to a <see cref="Brush"/> object.</returns>
+        
+        // Chnu: Interesting:
+        
         private MAPBrushSide ProcessBrushSide(BrushSide brushSide, Vector3 worldPosition, int sideNum)
         {
-            if (brushSide.IsBevel)
+            if (brushSide.IsBevel) 
             {
                 return null;
             }
-
-            MAPBrushSide mapBrushSide;
+            
+            MAPBrushSide mapBrushSide; 
             // The things we'll need to define a .MAP brush side
             string texture;
             string material = "wld_lightmap";
@@ -309,7 +312,7 @@ namespace Decompiler
                 {
                     return null;
                 }
-
+                
                 texture = (_master.settings.replace512WithNull && (face.Type & (1 << 9)) != 0) ? "**nulltexture**" : _bsp.Textures[face.TextureIndex].Name;
                 threePoints = GetPointsForFace(face, brushSide);
                 if (face.PlaneIndex >= 0 && face.PlaneIndex < _bsp.Planes.Count)
@@ -421,7 +424,7 @@ namespace Decompiler
             }
 
             TextureInfo outputTexInfo;
-            if (texInfo.Data != null && texInfo.Data.Length > 0)
+            if (texInfo.Data != null && texInfo.Data.Length > 0) // Chnu Dies ist true im moment!
             {
                 outputTexInfo = texInfo.BSP2MAPTexInfo(worldPosition);
             }
@@ -439,7 +442,7 @@ namespace Decompiler
                 textureInfo = outputTexInfo,
                 material = material,
                 lgtScale = 16,
-                lgtRot = 0,
+                lgtRot = 12,
                 smoothingGroups = smoothingGroups
             };
 
